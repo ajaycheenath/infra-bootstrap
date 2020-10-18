@@ -2,10 +2,10 @@
 #GIT_REPO=$1
 current_dir=$PWD
 REPO_URL="https://github.com/ajaycheenath/java-simple-rest-bootstrap.git"
-
-APP_ID=$(curl -X POST -F "repo=${REPO_URL}" http://localhost:8081/app | jq -r '.id')
-echo "Added new app details in App DB"
-
+APP_DETAILS=$(curl -X POST -F "repo=${REPO_URL}" http://localhost:8081/app)
+APP_ID=$(echo $APP_DETAILS | jq -r '.id')
+PORT=$(echo $APP_DETAILS | jq -r '.port')
+echo "Added new app details in App DB. appId: ${APP_ID} , ${PORT}"
 echo "Next app id: ${APP_ID}"
 APP_NAME=app-${APP_ID}
 
